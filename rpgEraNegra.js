@@ -45,14 +45,14 @@ class EraNegra{
            
          }
          uparNivel (Xp)
-         { nivel_ganho=0
+         { this.nivel_ganho=0
          while(Xp>=this.Xpnecessario){
           this.nivel+=1
           this.vida+=5
           this.dano+=1
           this.mana+=5
           this.Xp-= this.Xpnecessario
-          nivel_ganho+=1
+          this.nivel_ganho+=1
          }
          }
         }
@@ -105,186 +105,216 @@ class EraNegra{
           alert("Senhor Hanson: ah," + jogador.nome + "!Como é bom te ver,no horário como sempre,venha aqui rapaz")
           alert("Ele te leva ate uma mesa,onde você consegue ver um mapa junto de uma espada embainhada")
           alert("Senhor Hanson: Rapaz,você ira engresssar em um caminho muito perigoso como aventureiro,então aqui está")
-          let espada = new item (3,40,"uma lamina de ferro basica,otima para iniciantes","corpo a corpo",0)
+          let espada = new item (3,40,"uma lamina de ferro basica,otima para iniciantes","corpo a corpo",Infinity)
           jogador.inventario.push(espada)
           jogador.arma= espada
           alert(jogador.nome + " ganhou uma espada e um mapa")
           alert("Senhor Hanson: use esses itens com sabedoria,rapaz")
           alert("Você agradece seu mentor,então se vira para sair em busca de começar sua jornada")
         }
-        function combate(jogador,inimigo)
-        {
-          let jogCombate= jogador
-          jogCombate_Iniciacao= Math.round(Math.random()*12)
-          inimigo_Iniciacao= Math.round(Math.random()*12)
-          if(jogCombate_Iniciacao < inimigo_Iniciacao)
-            {
-          while((jogCombate.vida > 0) && (inimigo.vida > 0))
-          {
-            
-            alert(inimigo.nome + " ira lhe atacar!")
-             inimigo_escolha= 0
-            if(inimigo.habilidades.lenght > 0)
-              {
-            inimigo_escolha= Math.round(Math.random()*100)
-              }
-  
-             let inimigo_ataque= inimigo.dano + Math.round(Math.random()*6) + inimigo.arma.dano
-             if(inimigo_escolha>=90){
-               e = Math.floor(Math.random()*(inimigo.habilidades.length))
-              inimigo_ataque= inimigo.habilidades[e].dano
-              inimigo.mana-=inimigo.habilidades[e].gasto
-             }
-             inimigo_acerto= Math.round(Math.random()*20)
-             if(inimigo_acerto>= 10)
-             {
-              r= prompt(inimigo.nome + " te atacou,deseja desviar? 1.sim,2.não")
-              if(r==1){
-              jogCombate_desvio=  Math.round(Math.random()*20)
-              }
-              else{
-                jogCombate_desvio= 0
-              }
-              if(jogCombate_desvio>inimigo_acerto )
-              {
-                alert("vocẽ conseguiu desviar com sucesso!")
-              }
-              else{
-
-                alert ("você foi acertado e recebeu " + inimigo_ataque + " de dano!")
-                jogCombate.vida= jogCombate.vida - inimigo_ataque
-                alert("você esta com " + jogCombate.vida + " de vida")
-             
+        
+           function combate(jogador,inimigo)
+           {
+             let jogCombate= jogador
+             let jogCombate_Iniciacao= Math.round(Math.random()*12)
+             let inimigo_Iniciacao= Math.round(Math.random()*12)
+             if (jogCombate_Iniciacao == inimigo_Iniciacao){
+              while(jogCombate_Iniciacao == inimigo_Iniciacao){
+              jogCombate_Iniciacao= Math.round(Math.random()*12)
+              inimigo_Iniciacao= Math.round(Math.random()*12)
              }
             }
-             jogCombate_reacao= prompt ("seu turno,gostaria de usar qual ataque? 1.ataque fisico,2.habilidade")
-             if(jogCombate_reacao==1){
-              jogCombate_acerto= Math.round(Math.random()*20)
-              if(jogCombate_acerto>= 10)
-                {
-                alert("você executou seu golpe")
-                
-                 inimigo_desvio=  Math.round(Math.random()*20)
-                 
-                 if(inimigo_desvio>jogCombate_acerto )
+             if (jogCombate_Iniciacao < inimigo_Iniciacao)
+               {
+             while((jogCombate.vida > 0) && (inimigo.vida > 0))
+             {
+               
+               alert(inimigo.nome + " ira lhe atacar!")
+                let inimigo_escolha= 0
+               if(inimigo.habilidades.length > 0)
                  {
-                   alert(inimigo.nome+ "conseguiu desviar!")
+               inimigo_escolha= Math.round(Math.random()*100)
+                 }
+     
+                let inimigo_ataque= inimigo.dano + Math.round(Math.random()*6) + inimigo.arma.dano
+                if(inimigo_escolha>=90){
+                  let e = Math.floor(Math.random()*(inimigo.habilidades.length))
+                 inimigo_ataque= inimigo.habilidades[e].dano
+                 inimigo.mana-=inimigo.habilidades[e].gasto
+                }
+                let inimigo_acerto= Math.round(Math.random()*20)
+                if(inimigo_acerto>= 10)
+                {
+                  let jogCombate_desvio= 0
+                 let r = prompt(inimigo.nome + " te atacou,deseja desviar? 1.sim,2.não")
+                 if(r==1){
+                  jogCombate_desvio=  Math.round(Math.random()*20)
+                 }
+                
+                 if(jogCombate_desvio>inimigo_acerto )
+                 {
+                   alert("vocẽ conseguiu desviar com sucesso!")
                  }
                  else{
-                     jogCombate_ataque= jogCombate.dano + Math.round(Math.random()*6) + jogCombate.arma.dano
-                   alert (inimigo.nome + "foi acertado e recebeu " + jogCombate_ataque+ " de dano!")
-                   inimigo.vida= inimigo.vida - jogCombate_ataque
+   
+                   alert ("você foi acertado e recebeu " + inimigo_ataque + " de dano!")
+                   jogCombate.vida= jogCombate.vida - inimigo_ataque
+                   alert("você esta com " + jogCombate.vida + " de vida")
                 
                 }
-             }
-            
-             
-            }
-          }
-        }
-        if(jogCombate_Iniciacao > inimigo_Iniciacao)
-        {
-          while((jogCombate.vida>0) && (inimigo.vida > 0))
-          {
-            jogCombate_reacao= prompt ("seu turno,gostaria de usar qual ataque? 1.ataque fisico,2.habilidade")
-            if(jogCombate_reacao==1){
-             jogCombate_acerto= Math.round(Math.random()*20)
-             if(jogCombate_acerto>= 10)
-               {
-               alert("você executou seu golpe")
-               
-                inimigo_desvio=  Math.round(Math.random()*20)
                 
-                if(inimigo_desvio>jogCombate_acerto )
-                {
-                  alert(inimigo.nome+ "conseguiu desviar!")
-                }
-                else{
-                    jogCombate_ataque= jogCombate.dano + Math.round(Math.random()*6) + jogCombate.arma.dano
-                  alert (inimigo.nome + "foi acertado e recebeu " + jogCombate_ataque+ " de dano!")
-                  inimigo.vida= inimigo.vida - jogCombate_ataque
-               
                }
-              }
+               if(jogCombate.vida <= 0)
+                {
+                  alert ("você perdeu o combate")
+                  break
+                } 
 
-            }
-
-            alert(inimigo.nome + " ira lhe atacar!")
-             inimigo_escolha= 0
-            if(inimigo.habilidades.lenght > 0)
-              {
-            inimigo_escolha= Math.round(Math.random()*100)
-              }
-  
-             let inimigo_ataque= inimigo.dano + Math.round(Math.random()*6) + inimigo.arma.dano
-             if(inimigo_escolha>=90){
-               e = Math.floor(Math.random()*(inimigo.habilidades.length))
-              inimigo_ataque= inimigo.habilidades[e].dano
-              inimigo.mana-=inimigo.habilidades[e].gasto
+                let jogCombate_reacao = prompt ("seu turno,gostaria de usar qual ataque? 1.ataque fisico,2.habilidade")
+                if(jogCombate_reacao==1){
+                 let jogCombate_acerto= Math.round(Math.random()*20)
+                 if(jogCombate_acerto>= 10)
+                   {
+                   alert("você executou seu golpe")
+                   
+                    let inimigo_desvio=  Math.round(Math.random()*20)
+                    
+                    if(inimigo_desvio>jogCombate_acerto )
+                    {
+                      alert(inimigo.nome+ "conseguiu desviar!")
+                    }
+                    else{
+                        let jogCombate_ataque= jogCombate.dano + Math.round(Math.random()*6) + jogCombate.arma.dano
+                      alert (inimigo.nome + "foi acertado e recebeu " + jogCombate_ataque+ " de dano!")
+                      inimigo.vida= inimigo.vida - jogCombate_ataque
+                      jogador.arma.durabilidade -= 1
+                      jogador.arma.munição -= 1
+                   
+                   }
+                  
+                }
+                if(inimigo.vida <= 0)
+                  {
+                   alert("parabens,você derrotou um " + inimigo.nome + "!" )
+                   jogador.uparNivel (inimigo.xp)
+                   alert("voce ganhou " + inimigo.xp + " de XP e upou " + jogador.nivel_ganho + " niveis!")
+                  break
+                  }
+                
+               }
              }
-             inimigo_acerto= Math.round(Math.random()*20)
-             if(inimigo_acerto>= 10)
+           }
+           if(jogCombate_Iniciacao > inimigo_Iniciacao)
+           {
+             while((jogCombate.vida>0) && (inimigo.vida > 0))
              {
-              r= prompt(inimigo.nome + " te atacou,deseja desviar? 1.sim,2.não")
-              if(r==1){
-              jogCombate_desvio=  Math.round(Math.random()*20)
-              }
-              else{
-                jogCombate_desvio= 0
-              }
-              if(jogCombate_desvio>inimigo_acerto )
-              {
-                alert("vocẽ conseguiu desviar com sucesso!")
-              }
-              else{
-
-                alert ("você foi acertado e recebeu " + inimigo_ataque + " de dano!")
-                jogCombate.vida= jogCombate.vida - inimigo_ataque
-                alert("você esta com " + jogCombate.vida + " de vida")
-             
+               let jogCombate_reacao= prompt ("seu turno,gostaria de usar qual ataque? 1.ataque fisico,2.habilidade")
+               if(jogCombate_reacao==1){
+                let jogCombate_acerto= Math.round(Math.random()*20)
+                if(jogCombate_acerto>= 10)
+                  {
+                  alert("você executou seu golpe")
+                  
+                   let inimigo_desvio =  Math.round(Math.random()*20)
+                   
+                   if(inimigo_desvio >jogCombate_acerto )
+                   {
+                     alert(inimigo.nome + "conseguiu desviar!")
+                   }
+                   else{
+                       let jogCombate_ataque= jogCombate.dano + Math.round(Math.random()*6) + jogCombate.arma.dano
+                     alert (inimigo.nome + "foi acertado e recebeu " + jogCombate_ataque+ " de dano!")
+                     inimigo.vida-= jogCombate_ataque
+                     jogador.arma.durabilidade -= 1
+                     jogador.arma.munição -= 1
+                  
+                  }
+                 }
+   
+               }
+               if(inimigo.vida <= 0)
+                {
+                 alert("parabens,você derrotou um " + inimigo.nome + "!" )
+                 jogador.uparNivel (inimigo.xp)
+                 alert("voce ganhou " + inimigo.xp + " de XP e upou " + jogador.nivel_ganho + " niveis!")
+                break
+                }
+                else {
+   
+               alert(inimigo.nome + " ira lhe atacar!")
+                let inimigo_escolha= 0
+               if(inimigo.habilidades.length > 0)
+                 {
+               inimigo_escolha= Math.round(Math.random()*100)
+                 }
+     
+                let inimigo_ataque= inimigo.dano + Math.round(Math.random()*6) + inimigo.arma.dano
+                if(inimigo_escolha>=90){
+                  let e = Math.floor(Math.random()*(inimigo.habilidades.length))
+                 inimigo_ataque= inimigo.habilidades[e].dano
+                 inimigo.mana-=inimigo.habilidades[e].gasto
+                }
+                let inimigo_acerto= Math.round(Math.random()*20)
+                if(inimigo_acerto>= 10)
+                {
+                  let jogCombate_desvio= 0
+                 let r= prompt(inimigo.nome + " te atacou,deseja desviar? 1.sim,2.não")
+                 if(r==1){
+                 jogCombate_desvio=  Math.round(Math.random()*20)
+                 }
+                 
+                 if(jogCombate_desvio>inimigo_acerto )
+                 {
+                   alert("vocẽ conseguiu desviar com sucesso!")
+                 }
+                 else{
+   
+                   alert ("você foi acertado e recebeu " + inimigo_ataque + " de dano!")
+                   jogCombate.vida= jogCombate.vida - inimigo_ataque
+                   alert("você esta com " + jogCombate.vida + " de vida")
+                
+                }
+                if(jogCombate.vida <= 0)
+                  {
+                    alert ("você perdeu o combate")
+                    break
+                  }
+               }
+   
+               
+           }
              }
-            }
-
-
-        }
-      }
-     if(inimigo.vida <= 0)
-     {
-      alert("parabens,você derrotou um " + inimigo.nome + "!" )
-      jogador.uparNivel (inimigo.xp)
-      alert("voce ganhou " + inimigo.xp + " de XP e upou " + nivel_ganho + " niveis!")
-
-     }
-  if(jogCombate.vida <= 0)
-  {
-    alert ("você perdeu o combate")
-  }
-  }
-
-  let nada= new item (0,Infinity,"","corpo a corpo",0)
-        destino=prompt("para qual local você gostaria de ir? 1.floresta dos goblins(nivel recomendado:1),2.pantado da podridão(nivel recomendado(5)")
-        if(destino== 1){
-        local_jogador= "floresta goblin"
-        let adaga= new item (1,20,"uma lamina fina de cabo curto","corpo a corpo",0)
-        let npc1= new npc ("goblin","goblin",1,adaga,10,0,50,Math.trunc(Math.random()*20),[],10)
-        let npc2= new npc ("lobo","lobo",2,null,25,2,60,null,null,25)
-        let cichote_de_vinhas= new habilidade ("chicote de vinhas",4,30,"corpo a corpo",0,"um amontoado de vinhas em formato de chicote")
-        let npc3= new npc ("espectro de arvore","espectro de arvore",2,null,30,1,120,null,[chicote_de_vinhas],30)
-        let NPCs_floresta_dos_goblins= [npc1,npc2,npc3]
-        alert("você adentra na floresta dos goblins,conhecida pela sua biodiversidade cheia dessas criaturinhas verdes que amam ouro e outros animais selvagens")
-       let n = Math.round((Math.random()*30)/10)
-       let inimigo= NPCs_floresta_dos_goblins[n]
-       alert("Você escuta um barulho,ao se aproximar,você encontra um "+ inimigo.nome + "!")
-       alert("um combate se inicia!")
-       jogo1.combate(jogador,inimigo)
-
+         }
         
-       
+     }
+   
+     let nada= new item (0,Infinity,"","corpo a corpo",0)
+           let destino=prompt("para qual local você gostaria de ir? 1.floresta dos goblins(nivel recomendado:1),2.pantado da podridão(nivel recomendado(5)")
+           if(destino== 1){
+           let local_jogador= "floresta goblin"
+           let adaga= new item (1,20,"uma lamina fina de cabo curto","corpo a corpo",0)
+           let npc1= new npc ("goblin","goblin",1,adaga,10,0,50,Math.trunc(Math.random()*20),[],10)
+           let npc2= new npc ("lobo","lobo",2,nada,25,2,60,0,[],25)
+           let chicote_de_vinhas = new habilidade ("chicote de vinhas",4,30,"corpo a corpo",0,"um amontoado de vinhas em formato de chicote")
+           let npc3= new npc ("espectro de arvore","espectro de arvore",2,nada,30,1,120,0,[chicote_de_vinhas],30)
+           let NPCs_floresta_dos_goblins= [npc1,npc2,npc3]
+           alert("você adentra na floresta dos goblins,conhecida pela sua biodiversidade cheia dessas criaturinhas verdes que amam ouro e outros animais selvagens")
+          let n = Math.round((Math.random()*30)/10)
+          let inimigo= NPCs_floresta_dos_goblins[n]
+          alert("Você escuta um barulho,ao se aproximar,você encontra um "+ inimigo.nome + "!")
+          alert("um combate se inicia!")
+          combate(jogador,inimigo)
+   
+           
+          
+   
+   
+   }
+   }
+   }
+  }
 
-
-}
-}
-}
-}
-jogo1= new EraNegra
-jogo1.iniciar()
+    
+   jogo1= new EraNegra
+   jogo1.iniciar()
+   
